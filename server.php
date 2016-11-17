@@ -1,6 +1,0 @@
-<?php
-    function getUserName()
-    {
-        return '';
-    }
-?>

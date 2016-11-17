@@ -1,0 +1,27 @@
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Deskovky</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li {{ (page == 'games') ? 'class="active"' : '' }}><a href="index.php">Hry</a></li>
+                <li {{ (page == 'users') ? 'class="active"' : '' }}><a href="index.php?users">Uživatelé</a></li>
+                <li {{ (page == 'loans') ? 'class="active"' : '' }}><a href="index.php?loans">Výpůjčky</a></li>
+                <li {{ (page == 'login') ? 'class="active"' : '' }}>
+                    {% if page == 'user' and pageId == info.id %}
+                        <a href="index.php?logout">Logout</a>
+                    {% else %}                    
+                        <a href="index.php?{{info.id == 0 ? "login" : "user="~info.id}}">{{info.name}}</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
