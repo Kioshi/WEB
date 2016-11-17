@@ -1,0 +1,26 @@
+<div class="section">
+    <div class="container">      
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-center">{{name}}
+              <br>
+            </h1>
+          </div>
+        </div>
+        {% if dataLenght > 0 %}
+            {% for index in range(0, dataLenght) %}
+                {% if index is divisible by(4) and index > 0%}
+                    </div><div class="row">
+                {% elseif index is divisible by(4) %}
+                    <div class="row">
+                {% endif %}                
+                <div class="col-md-3">
+                    <a href="index.php?{{link}}={{data[i].id}}">
+                        <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive">
+                        <h3>Hra {{index+1}}</h3>
+                    </a>
+                </div> 
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

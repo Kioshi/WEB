@@ -140,7 +140,7 @@ class Database
 //GAMES
     public function getGames()
     {
-
+        return array_fill(0,32, '');
     }
 
     public function getGame($gameId)
