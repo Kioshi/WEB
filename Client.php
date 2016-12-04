@@ -182,6 +182,25 @@ class Client
             else
                 $type = 4;
         }
+        else if (isSet($_POST["skrin"]))
+        {
+            if ($this->db->addCloset($_POST))
+                $type = 8;
+            else
+                $type = 9;
+        }
+        else if (isSet($_POST["user"]))
+        {
+            if ($this->db->checkLoan($_POST))
+            {
+                if ($this->db->addLoan($_POST))
+                    $type = 5;
+                else
+                    $type = 6;
+            }
+            else
+                $type = 7;
+        }
 
         $this->showForms($type);
     }

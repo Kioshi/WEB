@@ -150,8 +150,40 @@ class Database
 
     public function addMember($member)
     {
-        print_r($member);
-        return true;
+        $array = array();
+        foreach ($member as $key => $value)
+        {
+            switch($key)
+            {
+                case 'jmeno': $array['jmeno'] = $value; break;
+                case 'nick': $array['prezdivka'] = $value; break;
+                case 'password': 
+                    if (strlen($value) < 6) return false;
+                    $array['passHash'] = password_hash($value, PASSWORD_DEFAULT);
+                    break;
+                case 'username': $array['userName'] = $value; break;
+            }
+        }
+        $sql1 = 'INSERT INTO clenove (';
+        $sql2 = ') VALUES (';
+        $first = true;
+        foreach ($array as $key => $value)
+        {
+            if ($first) $first = false;
+            else
+            {
+                $sql1 .= ',';
+                $sql2 .= ',';
+            }
+            $sql1 .= $key;
+            $sql2 .= ':'.$key;
+        }
+        $this->query($sql1.$sql2.')');
+
+        foreach ($array as $key => $value)
+            $this->bind(':'.$key, $value);
+        
+        return $this->execute();
     }
 
     public function removeMember($member)
@@ -228,7 +260,16 @@ class Database
 
     }
 
-    // ETC
+    public function checkLoan($loan)
+    {
+        return true;
+    }
+
+    // Closets
+    public function addCloset($closet)
+    {
+
+    }
 
     public function getClosets()
     {
