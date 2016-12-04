@@ -1,0 +1,252 @@
+<div class="section">
+    <div class="container">
+        {% if type == 1 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">Uživatel úspěšně přidán.</div>
+                </div>
+            </div>
+        {% endif %}
+        {% if type == 2 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">Uživatele se nepodařilo přidat.</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#user">
+                        <h3 class="panel-title">Přidat uživatele</h3>
+                    </div>
+                    <div id="user" class="collapse">
+                        <div class="panel-body">
+                            <form role="form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label" for="jmeno">Jméno</label>
+                                    <input class="form-control" id="jmeno" name="jmeno" maxlength="45" required
+                                    placeholder="Zadejte jméno" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="nick">Přezdívka</label>
+                                    <input class="form-control" id="nick" name="nick" maxlength="45"
+                                    placeholder="Zadejte přezdívku" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="username">Username</label>
+                                    <input class="form-control" id="username" name="username" maxlength="45" required
+                                    placeholder="Zadejte username" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="password">Heslo</label>
+                                    <input class="form-control" id="password" name="password" required
+                                    placeholder="Password" type="password">
+                                </div>
+                                <button type="submit" class="btn btn-default">Přidat uživatele</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% if type == 3 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">Hra úspěšně přidána.</div>
+                </div>
+            </div>
+        {% endif %}
+        {% if type == 4 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">Hru se nepodařilo přidat.</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#game">
+                        <h3 class="panel-title">Přidat hru</h3>
+                    </div>
+                    <div id="game" class="collapse">
+                        <div class="panel-body">
+                            <form role="form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label" for="nazev">Název</label>
+                                    <input class="form-control" id="nazev" name="nazev" maxlength="45" required
+                                    placeholder="Zadejte název" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="skrin">Skříň</label>
+                                    <select class="form-control" id="skrin" name="skrin" required>                                        
+                                        {% if closets > 0 %}
+                                            {% for index in range(0, closetsLenght-1) %}
+                                                <option value="{{closets[index].id}}">{{closets[index].skrin}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="alter">Alternativní název</label>
+                                    <input class="form-control" id="alter" name="alter" maxlength="45"
+                                    placeholder="Zadejte alternativní název" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="link">Odkaz</label>
+                                    <input class="form-control" id="link" name="link" maxlength="200"
+                                    placeholder="Zadejte odkaz na zatrolenky" type="url">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="price">Cena</label>
+                                    <input class="form-control" id="price" name="price"
+                                    placeholder="Zadejte cenu v korunách" type="number" min="0" step="any">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="date">Datum pořízení</label>
+                                    <input class="form-control" id="date" name="date"
+                                    placeholder="Zadejte cenu v korunách" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="method">Způsob pořízení</label>
+                                    <input class="form-control" id="method" name="method" maxlength="45"
+                                    placeholder="Zadejte způsob pořízení" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="playtime">Herní doba</label>
+                                    <input class="form-control" id="playtime" name="playtime"
+                                    placeholder="Zadejte herní dobu v minutách" type="number" min="1" step="any">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="min">Minimální počet hráčů</label>
+                                    <input class="form-control" id="min" name="min"
+                                    placeholder="Zadejte minimální počet hráčů" type="number" min="1" step="any">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="max">Maximální počet hráčů</label>
+                                    <input class="form-control" id="max" name="max"
+                                    placeholder="Zadejte maximální počet hráčů" type="number" min="1" step="any">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="note">Poznámka</label>
+                                    <input class="form-control" id="note" name="note"
+                                    placeholder="Zadejte poznámku" type="text">
+                                </div>
+                                <button type="submit" class="btn btn-default">Přidat hru</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% if type == 5 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">Výpůjčka úspěšně přidána.</div>
+                </div>
+            </div>
+        {% endif %}
+        {% if type == 6 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">Výpůjčku se nepodařilo přidat.</div>
+                </div>
+            </div>
+        {% endif %}
+        {% if type == 7 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning" role="alert">Výpůjčku se nepodařilo přidat. Hra je již v tento datum půjčená.</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#loan">
+                        <h3 class="panel-title">Přidat výpjčku</h3>
+                    </div>
+                    <div id="loan" class="collapse">
+                        <div class="panel-body">
+                            <form role="form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label" for="user">Uživatel</label>
+                                    <select class="form-control" id="user" name="user" required>                                        
+                                        {% if members > 0 %}
+                                            {% for index in range(0, membersLenght-1) %}
+                                                <option value="{{members[index].id}}">{{members[index].nazev}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="game">Hra</label>
+                                    <select class="form-control" id="game" name="game" required>                                        
+                                        {% if games > 0 %}
+                                            {% for index in range(0, gamesLenght-1) %}
+                                                <option value="{{games[index].id}}">{{games[index].nazev}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="od">Od</label>
+                                    <input class="form-control" id="od" name="od" min="{{ "now"|date("Y-m-d") }}" required 
+                                    placeholder="Datum od kdy" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="do">Do</label>
+                                    <input class="form-control" id="do" name="do" min="{{ "now"|date("Y-m-d") }}" required
+                                    placeholder="Datum do kdy" type="date">
+                                </div>
+                                <button type="submit" class="btn btn-default">Přidat výpůjčku</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% if type == 8 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">Skříň úspěšně přidána.</div>
+                </div>
+            </div>
+        {% endif %}
+        {% if type == 9 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">Skříň se nepodařilo přidat.</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#closet">
+                        <h3 class="panel-title">Přidat skříň</h3>
+                    </div>
+                    <div id="closet" class="collapse">
+                        <div class="panel-body">
+                            <form role="form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label" for="skrin">Označení skriňe</label>
+                                    <input class="form-control" id="skrin" name="skrin" maxlength="2" required
+                                    placeholder="Zadejte označení skříně" type="text">
+                                </div>
+                                <button type="submit" class="btn btn-default">Přidat skříň</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

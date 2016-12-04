@@ -112,6 +112,15 @@ class Database
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getRole($userName)
+    {
+        $this->query('SELECT r.role FROM clenove c JOIN role r ON r.id = c.role WHERE userName = :userName');
+        $this->bind(':userName', $userName);
+        $this->execute();
+        return ($this->stmt->fetch()[0]);
+        //return $this->stmt->fetch(PDO::FETCH_ASSOC)->rol;
+    }
+
 // MEMBERS
     public function getMembers()
     {
@@ -141,7 +150,8 @@ class Database
 
     public function addMember($member)
     {
-
+        print_r($member);
+        return true;
     }
 
     public function removeMember($member)
@@ -177,7 +187,8 @@ class Database
 
     public function addGame($game)
     {
-
+        print_r($game);
+        return false;
     }
 
     public function removeGame($game)
@@ -215,6 +226,15 @@ class Database
     public function addLoan($loan)
     {
 
+    }
+
+    // ETC
+
+    public function getClosets()
+    {
+        $this->query('SELECT id, skrin FROM skrine');
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);        
     }
 }
 

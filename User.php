@@ -25,7 +25,9 @@ class User
             $this->userName = $userName;
             $_SESSION["userName"] = $userName;
             $_SESSION["session"] = $this->session;
+            return true;
         }
+        return false;
     }
 
     public function register($userName, $password, $memberId)
@@ -59,6 +61,11 @@ class User
     public function getInfo()
     {
         return $this->userName ? $this->db->getInfo($this->userName) : array('name' => 'Login', 'id' => -1);
+    }
+
+    public function getRole()
+    {
+        return $this->userName ? $this->db->getRole($this->userName) : '';
     }
 }
 

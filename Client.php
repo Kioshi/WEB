@@ -73,6 +73,13 @@ class Client
                 $this->loans($this->db->getLoans(null,$_GET["game"]));
                   
         }
+        else if (isSet($_GET["admin"]))
+        {
+            if ($this->user->getRole() == 'ADMIN') 
+                $this->administration();
+            else
+                $this->unauthorized();        
+        }
         else
         {
             $this->table('Hry', 'game' ,$this->db->getGames());        
@@ -85,6 +92,7 @@ class Client
 
         $template_params = array();
         $template_params["info"] = $this->user->getInfo();
+        $template_params["role"] = $this->user->getRole();
         $template_params["page"] = currPage();
         $template_params["pageId"] = currPageId();
         echo $navbar->render($template_params);
@@ -154,6 +162,44 @@ class Client
     {
         $template = $this->twig->loadTemplate('unauthorized.htm');
         $template_params = array();
+        echo $template->render($template_params);
+    }
+
+    private function administration()
+    {
+        $type = 0;
+        if (isSet($_POST["jmeno"]))
+        {
+            if ($this->db->addMember($_POST))
+                $type = 1;
+            else
+                $type = 2;
+        }
+        else if (isSet($_POST["nazev"]))
+        {
+            if ($this->db->addGame($_POST))
+                $type = 3;
+            else
+                $type = 4;
+        }
+
+        $this->showForms($type);
+    }
+
+    private function showForms($type)
+    {
+        $template = $this->twig->loadTemplate('admin.htm');
+        $template_params = array();
+        $template_params["type"] = $type;
+        $closets = $this->db->getClosets();
+        $template_params["closets"] = $closets;
+        $template_params["closetsLenght"] = sizeof($closets);
+        $members = $this->db->getMembers();
+        $template_params["members"] = $members;
+        $template_params["membersLenght"] = sizeof($members);
+        $games = $this->db->getGames();
+        $template_params["games"] = $games;
+        $template_params["gamesLenght"] = sizeof($games);
         echo $template->render($template_params);
     }
 }
