@@ -114,11 +114,22 @@ class Database
 // MEMBERS
     public function getMembers()
     {
-
+        $this->query('SELECT id, jmeno as nazev FROM clenove');
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getMember($memberId)
     {
+        $this->query('SELECT jmeno AS name, \'http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png\' as img, prezdivka AS \'Přezdívka:\', aktivni as \'Aktivní:\' FROM clenove WHERE id = :id');
+        $this->bind(':id', $memberId);
+        $this->execute();
+        $array = $this->stmt->fetch(PDO::FETCH_ASSOC);
+        $img = $array['img'];
+        unset($array['img']);
+        $name = $array['name'];
+        unset($array['name']);
+        return array('img' => $img, 'name' => $name, 'data' => $array);
 
     }
 
@@ -147,7 +158,7 @@ class Database
 
     public function getGame($gameId)
     {
-        $this->query('SELECT nazev AS name, \'http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png\' as img, /*nazev AS \'Název:\',*/ alternativniNazev AS \'Alternativní název:\', CONCAT(cena, \' Kč\') AS \'Cena:\', datumPorizeni AS \'Datum pořízení:\', zpusob AS \'Způsob pořízení:\', pozn AS \'Poznámka:\', link AS \'Odkaz:\', CONCAT(hernidoba,\' min\') AS \'Herní doba:\', CONCAT(minPocet, "-", maxPocet, " hráčů") AS \'Počet hráčů:\' FROM hry WHERE id = :id');
+        $this->query('SELECT nazev AS name, \'http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png\' as img, alternativniNazev AS \'Alternativní název:\', CONCAT(cena, \' Kč\') AS \'Cena:\', datumPorizeni AS \'Datum pořízení:\', zpusob AS \'Způsob pořízení:\', pozn AS \'Poznámka:\', link AS \'Odkaz:\', CONCAT(hernidoba,\' min\') AS \'Herní doba:\', CONCAT(minPocet, "-", maxPocet, " hráčů") AS \'Počet hráčů:\' FROM hry WHERE id = :id');
         $this->bind(':id', $gameId);
         $this->execute();
         $array = $this->stmt->fetch(PDO::FETCH_ASSOC);
