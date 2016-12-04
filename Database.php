@@ -153,15 +153,17 @@ class Database
         $array = array();
         foreach ($member as $key => $value)
         {
+            if (!$value || $value == '')
+                continue;
             switch($key)
             {
-                case 'jmeno': $array['jmeno'] = $value; break;
-                case 'nick': $array['prezdivka'] = $value; break;
+                case 'jmeno': $array['jmeno'] = htmlspecialchars($value); break;
+                case 'nick': $array['prezdivka'] = htmlspecialchars($value); break;
                 case 'password': 
                     if (strlen($value) < 6) return false;
                     $array['passHash'] = password_hash($value, PASSWORD_DEFAULT);
                     break;
-                case 'username': $array['userName'] = $value; break;
+                case 'username': $array['userName'] = htmlspecialchars($value); break;
             }
         }
         $sql1 = 'INSERT INTO clenove (';
@@ -182,8 +184,14 @@ class Database
 
         foreach ($array as $key => $value)
             $this->bind(':'.$key, $value);
-        
-        return $this->execute();
+        try 
+        {
+            return $this->execute();
+        }
+        catch( PDOException $Exception ) 
+        {
+            return false;
+        }
     }
 
     public function removeMember($member)
@@ -219,8 +227,54 @@ class Database
 
     public function addGame($game)
     {
+        $array = array();
         print_r($game);
-        return false;
+        foreach ($game as $key => $value)
+        {
+            if (!$value || $value == '')
+                continue;
+            switch($key)
+            {
+                case 'nazev': $array['nazev'] = htmlspecialchars($value); break;
+                case 'alter': $array['alternativniNazev'] = htmlspecialchars($value); break;
+                case 'link': $array['link'] = htmlspecialchars($value); break;
+                case 'price': $array['cena'] = $value; break;
+                case 'date': $array['datumPorizeni'] = $value; break;
+                case 'method': $array['zpusob'] = htmlspecialchars($value); break;
+                case 'playtime': $array['hernidoba'] = $value; break;
+                case 'min': $array['minPocet'] = $value; break;
+                case 'max': $array['maxPocet'] = $value; break;
+                case 'note': $array['pozn'] = htmlspecialchars($value); break;
+                case 'skrin': $array['skrine'] = $value; break;
+            }
+        }
+        $sql1 = 'INSERT INTO hry (';
+        $sql2 = ') VALUES (';
+        $first = true;
+        foreach ($array as $key => $value)
+        {
+            if ($first) $first = false;
+            else
+            {
+                $sql1 .= ',';
+                $sql2 .= ',';
+            }
+            $sql1 .= $key;
+            $sql2 .= ':'.$key;
+        }
+        $this->query($sql1.$sql2.')');
+
+        foreach ($array as $key => $value)
+            $this->bind(':'.$key, $value);
+        
+        try 
+        {
+            return $this->execute();
+        }
+        catch( PDOException $Exception ) 
+        {
+            return false;
+        }
     }
 
     public function removeGame($game)
@@ -231,7 +285,7 @@ class Database
 //LOANS
     public function getLoans($memberId,$gameId)
     {
-        $sql = 'SELECT v.id, c.jmeno AS clen, h.nazev AS hra, v.datumPujceni, v.datumVraceni FROM vypujcky v JOIN hry h ON v.hry_id = h.id JOIN clenove c ON c.id = v.clenove_id';
+        $sql = 'SELECT v.id, c.jmeno AS clen, h.nazev AS hra, v.datumPujceni, v.datumVraceni, v.pozn FROM vypujcky v JOIN hry h ON v.hry_id = h.id JOIN clenove c ON c.id = v.clenove_id';
         if ($memberId != null)
         {
             $sql .= ' WHERE v.clenove_id = :memberId';
@@ -257,17 +311,49 @@ class Database
 
     public function addLoan($loan)
     {
+        $this->query('INSERT INTO vypujcky (clenove_id, hry_id, datumPujceni, datumVraceni, pozn) VALUES (:clen,:hra, :od, :do, :note)');
+        $this->bind(':hra', $loan['game']);
+        $this->bind(':clen', $loan['user']);
+        $this->bind(':od', $loan['od']);
+        $this->bind(':do', $loan['do']);
+        $this->bind(':note', htmlspecialchars($loan['note']));
+        try 
+        {
+            return $this->execute();
+        }
+        catch( PDOException $Exception ) 
+        {
+            return false;
+        }   
 
     }
 
     public function checkLoan($loan)
     {
-        return true;
+        if (new DateTime($loan['od']) > new DateTime($loan['do'])) 
+            return false;
+
+        $this->query('SELECT * FROM vypujcky WHERE hry_id = :hra AND ((datumPujceni BETWEEN :od AND :do) OR (datumVraceni BETWEEN :od AND :do) OR (:od BETWEEN datumPujceni AND datumVraceni))');
+        $this->bind(':hra', $loan['game']);
+        $this->bind(':od', $loan['od']);
+        $this->bind(':do', $loan['do']);
+        $this->execute();
+        return $this->stmt->rowCount() == 0;
     }
 
     // Closets
     public function addCloset($closet)
     {
+        $this->query('INSERT INTO skrine (skrin) VALUES (:skrin)');
+        $this->bind(':skrin', $closet['skrin']);
+        try 
+        {
+            return $this->execute();
+        }
+        catch( PDOException $Exception ) 
+        {
+            return false;
+        }   
 
     }
 
