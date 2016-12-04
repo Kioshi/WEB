@@ -1,0 +1,31 @@
+<div class="section">
+    <div class="container"> 
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-center">
+                {{pageName}}<br>
+            </h1>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{info.img}}" class="hidden-sm hidden-xs img-responsive">
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Název: {{info.name}}</h1>
+                    </div>
+                </div>
+                {% for key,value in info.data %}
+                    <div class="row">
+                        <div class="col-md-3">{{key}}
+                        </div>
+                        <div class="col-md-9">{{value}}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

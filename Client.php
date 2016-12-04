@@ -45,14 +45,17 @@ class Client
         else if (isSet($_GET["loans"]))
         {
             if ($this->user->isLogged())
-                $this->loans();
+                $this->loans($this->db->getLoans($this->user,null,null),"Výpůjčky");
             else
                 $this->unauthorized();  
         }
         else if (isSet($_GET["member"]))
         {
             if ($this->user->isLogged())
+            {
                 $this->detail('Člen', $this->db->getMember($_GET["member"]));
+                $this->loans($this->db->getLoans($this->user,$_GET["member"],null));
+            }
             else
                 $this->unauthorized();
         }
@@ -65,14 +68,16 @@ class Client
         }
         else if (isSet($_GET["game"]))
         {
-            $this->detail('Člen',$this->db->getGame($_GET["game"]));        
+            $this->detail('Hra',$this->db->getGame($_GET["game"])); 
+            if ($this->user->isLogged()) 
+                $this->loans($this->db->getLoans($this->user,null,$_GET["game"]));
+                  
         }
         else
         {
             $this->table('Hry', 'game' ,$this->db->getGames());        
         }
     }
-
 
     private function createNavBar()
     {
@@ -85,8 +90,6 @@ class Client
         echo $navbar->render($template_params);
     }
 
-
-
     private function login()
     {
         echo "Login";
@@ -97,21 +100,32 @@ class Client
     {
         $template = $this->twig->loadTemplate('table.htm');
         $template_params = array();
-        $template_params["name"] = $name;
+        $template_params["pageName"] = $name;
         $template_params["link"] = $link;
         $template_params["data"] = $data;
         $template_params["dataLenght"] = sizeof($data);
         echo $template->render($template_params);
     }
 
-    private function loans()
+    private function loans($data, $pageName = null)
     {
-        echo "loans";
+        $navbar = $this->twig->loadTemplate('loans.htm');
+
+        $template_params = array();
+        if ($pageName != null)
+            $template_params["pageName"] = $pageName;
+        $template_params["data"] = $data;
+        $template_params["dataLenght"] = sizeof($data);
+        echo $navbar->render($template_params);
     }
 
     private function detail($name, $data)
     {
-        echo "detail ".$name;
+        $template = $this->twig->loadTemplate('detail.htm');
+        $template_params = array();
+        $template_params["pageName"] = $name;
+        $template_params["info"] = $data;
+        echo $template->render($template_params);
     }
 
     private function unauthorized()
@@ -121,7 +135,5 @@ class Client
         echo $template->render($template_params);
     }
 }
-
-
 
 ?>

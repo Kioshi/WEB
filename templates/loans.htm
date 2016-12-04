@@ -1,0 +1,29 @@
+<div class="section">
+    <div class="container">  
+        {% if pageName is defined %}    
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-center">
+                {{pageName}}<br>
+            </h1>
+          </div>
+        </div>
+        {% endif %}
+        {% if dataLenght > 0 %}
+            {% for index in range(0, dataLenght-1) %}
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-target="#loan{{index}}">
+                            <h3 class="panel-title">Panel title</h3>
+                        </div>
+                        <div id="loan{{index}}" class="collapse">
+                            <div class="panel-body">
+                                <p>Panel content</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
