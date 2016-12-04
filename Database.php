@@ -185,9 +185,25 @@ class Database
     }
 
 //LOANS
-    public function getLoans($user,$memberId,$gameId)
+    public function getLoans($memberId,$gameId)
     {
-        return array_fill(0,5, '');
+        $sql = 'SELECT v.id, c.jmeno AS clen, h.nazev AS hra, v.datumPujceni, v.datumVraceni FROM vypujcky v JOIN hry h ON v.hry_id = h.id JOIN clenove c ON c.id = v.clenove_id';
+        if ($memberId != null)
+        {
+            $sql .= ' WHERE v.clenove_id = :memberId';
+            $this->query($sql);
+            $this->bind(':memberId', $memberId);
+        }
+        else if ($gameId != null)
+        {
+            $sql .= ' WHERE v.hry_id = :gameId';
+            $this->query($sql);
+            $this->bind(':gameId', $gameId);
+        }
+        else
+            $this->query($sql);
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function updateLoan($loan)
@@ -195,7 +211,7 @@ class Database
 
     }
 
-    public function addLoadn($loan)
+    public function addLoan($loan)
     {
 
     }

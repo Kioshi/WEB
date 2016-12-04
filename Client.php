@@ -45,7 +45,7 @@ class Client
         else if (isSet($_GET["loans"]))
         {
             if ($this->user->isLogged())
-                $this->loans($this->db->getLoans($this->user,null,null),"Výpůjčky");
+                $this->loans($this->db->getLoans(null,null),"Výpůjčky");
             else
                 $this->unauthorized();  
         }
@@ -54,7 +54,7 @@ class Client
             if ($this->user->isLogged())
             {
                 $this->detail('Člen', $this->db->getMember($_GET["member"]));
-                $this->loans($this->db->getLoans($this->user,$_GET["member"],null));
+                $this->loans($this->db->getLoans($_GET["member"],null));
             }
             else
                 $this->unauthorized();
@@ -70,7 +70,7 @@ class Client
         {
             $this->detail('Hra',$this->db->getGame($_GET["game"])); 
             if ($this->user->isLogged()) 
-                $this->loans($this->db->getLoans($this->user,null,$_GET["game"]));
+                $this->loans($this->db->getLoans(null,$_GET["game"]));
                   
         }
         else
