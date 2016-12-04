@@ -76,7 +76,8 @@ class Database
         $this->query('SELECT passHash FROM clenove WHERE userName = :userName');
         $this->bind(':userName', $userName);
         $this->execute();
-        $dbHash = $this->stmt->fetch(PDO::FETCH_OBJ)->passHash;
+        $result = $this->stmt->fetch(PDO::FETCH_OBJ);
+        $dbHash = $result ? $result->passHash : '';
 
         if (password_verify($password,$dbHash))
         {

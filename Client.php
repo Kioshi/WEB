@@ -92,8 +92,30 @@ class Client
 
     private function login()
     {
-        echo "Login";
-        $this->user->login('tester','test');
+        if (isSet($_POST["username"]) && isSet($_POST["password"]))
+        {
+            if ($this->user->login($_POST["username"],$_POST["password"]))
+            {
+                header('Location: '.strtok($_SERVER["REQUEST_URI"],'?'));
+                die;
+            }
+            else
+            {
+                $this->showLogin(true);
+            }
+        }
+        else
+        {
+            $this->showLogin(false);
+        }
+    }
+
+    private function showLogin($failed)
+    {
+        $template = $this->twig->loadTemplate('login.htm');
+        $template_params = array();
+        $template_params["failed"] = $failed;
+        echo $template->render($template_params);
     }
 
     private function table($name, $link, $data)

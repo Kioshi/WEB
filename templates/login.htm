@@ -1,0 +1,28 @@
+<div class="section">
+    <div class="container">
+        {% if failed == true %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">Špatné jméno nebo heslo!</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+            <form method="POST" role="form">
+                <div class="form-group">
+                <label class="control-label" for="username">Username</label>
+                <input class="form-control" id="username" name="username"
+                placeholder="Zadejte username" type="text">
+                </div>
+                <div class="form-group">
+                <label class="control-label" for="password">Password</label>
+                <input class="form-control" id="password" name="password"
+                placeholder="Password" type="password">
+                </div>
+                <button type="submit" class="btn btn-default">Přihlásit</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
