@@ -8,6 +8,7 @@ class AdminPage extends Page
     protected $user;
     protected $db;
     protected $template;
+    protected $formTemplate;
     protected $type;
 
     public function __construct($user, $db, $twig)
@@ -17,6 +18,7 @@ class AdminPage extends Page
         $this->user = $user;
         $this->db = $db;
         $this->template = $this->twig->loadTemplate('admin.htm');
+        $this->formTemplate = $this->twig->loadTemplate('loanForm.htm');
 
         $this->processPOST();
     }
@@ -34,6 +36,7 @@ class AdminPage extends Page
         $games = $this->db->getGames();
         $template_params["games"] = $games;
         $template_params["gamesLenght"] = sizeof($games);
+        $template_params["loanForm"] = $this->formTemplate->render($template_params);
         return $this->template->render($template_params);
     }
     

@@ -1,0 +1,74 @@
+<div class="container">
+    {% if type == 5 %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert">Výpůjčka úspěšně přidána.</div>
+            </div>
+        </div>
+    {% endif %}
+    {% if type == 6 %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">Výpůjčku se nepodařilo přidat.</div>
+            </div>
+        </div>
+    {% endif %}
+    {% if type == 7 %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning" role="alert">Výpůjčku se nepodařilo přidat. Hra je již v tento datum půjčená.</div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" data-toggle="collapse" data-target="#loan">
+                    <h3 class="panel-title">Přidat výpjčku</h3>
+                </div>
+                <div id="loan" class="collapse">
+                    <div class="panel-body">
+                        <form role="form" method="POST">
+                            <div class="form-group">
+                                <label class="control-label" for="user">Uživatel</label>
+                                <select class="form-control" id="user" name="user" required>                                        
+                                    {% if members > 0 %}
+                                        {% for index in range(0, membersLenght-1) %}
+                                            <option value="{{members[index].id}}">{{members[index].nazev}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="game">Hra</label>
+                                <select class="form-control" id="game" name="game" required>                                        
+                                    {% if games > 0 %}
+                                        {% for index in range(0, gamesLenght-1) %}
+                                            <option value="{{games[index].id}}">{{games[index].nazev}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="od">Od</label>
+                                <input class="form-control" id="od" name="od" min="{{ "now"|date("Y-m-d") }}" required 
+                                placeholder="Datum od kdy" type="date">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="do">Do</label>
+                                <input class="form-control" id="do" name="do" min="{{ "now"|date("Y-m-d") }}" required
+                                placeholder="Datum do kdy" type="date">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="note">Poznámka</label>
+                                <input class="form-control" id="note" name="note"
+                                placeholder="Zadejte poznámku" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-default">Přidat výpůjčku</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
