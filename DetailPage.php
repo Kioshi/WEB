@@ -28,7 +28,7 @@ abstract class DetailPage extends Page
     private function processPOST()
     {
         $this->type = 0;
-        if (isSet($_POST["user"]))
+        if (isSet($_POST["formLoan"]))
         {
             if ($this->db->checkLoan($_POST))
             {

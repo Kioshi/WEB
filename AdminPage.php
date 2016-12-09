@@ -43,28 +43,28 @@ class AdminPage extends Page
     private function processPOST()
     {
         $this->type = 0;
-        if (isSet($_POST["jmeno"]))
+        if (isSet($_POST["formMember"]))
         {
             if ($this->db->addMember($_POST))
                 $this->type = 1;
             else
                 $this->type = 2;
         }
-        else if (isSet($_POST["nazev"]))
+        else if (isSet($_POST["formGame"]))
         {
             if ($this->db->addGame($_POST))
                 $this->type = 3;
             else
                 $this->type = 4;
         }
-        else if (isSet($_POST["skrin"]))
+        else if (isSet($_POST["formCloset"]))
         {
             if ($this->db->addCloset($_POST))
                 $this->type = 8;
             else
                 $this->type = 9;
         }
-        else if (isSet($_POST["user"]))
+        else if (isSet($_POST["formLoan"]))
         {
             if ($this->db->checkLoan($_POST))
             {
