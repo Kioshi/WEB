@@ -9,11 +9,11 @@ class User
     private $session;
     private $db;
 
-    public function __construct()
+    public function __construct($db)
     {
         $this->userName = isSet($_SESSION["userName"]) ? $_SESSION["userName"] : null;
         $this->session = isSet($_SESSION["session"]) ? $_SESSION["session"] : null;
-        $this->db = new Database();
+        $this->db = $db;
     }
 
     public function login($userName, $password)
