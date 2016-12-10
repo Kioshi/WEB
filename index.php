@@ -18,6 +18,7 @@
   $template_params["body"] = createBody();
   echo $template->render($template_params);
   
+  // Initiliaze Twig templating engine
   function initTwig()
   {
       Twig_Autoloader::register();
@@ -25,6 +26,7 @@
       return new Twig_Environment($loader);
   }
   
+  // Create and render navigation bar
   function createNavBar()
   {
       global $twig, $user;
@@ -38,6 +40,7 @@
       echo $navbar->render($template_params);
   }
 
+  // Create and render body
   function createBody()
   {
       global $twig, $user, $db;
@@ -109,6 +112,7 @@
       return $result;
     }
     
+    // Helper for retrieve page name from GET
     function currPage()
     {
         if (isSet($_GET["members"]))
@@ -119,10 +123,13 @@
             return 'loans';
         else if (isSet($_GET["login"]))   
             return 'login';
+        else if (isSet($_GET["admin"]))   
+            return 'admin';
         else
             return 'games';
     }
 
+    // Helper for retrieve id from GET
     function currPageId()
     {
         if (isSet($_GET["member"]))

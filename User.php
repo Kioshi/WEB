@@ -58,11 +58,13 @@ class User
             return false;
     }
 
+    // Retrieve user info from DB or return default
     public function getInfo()
     {
         return $this->userName ? $this->db->getInfo($this->userName) : array('name' => 'Login', 'id' => -1);
     }
 
+    // Retrieve user role from DB
     public function getRole()
     {
         return $this->userName ? $this->db->getRole($this->userName) : '';

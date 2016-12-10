@@ -34,6 +34,11 @@
                                     placeholder="Zadejte přezdívku" type="text">
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label" for="img">Odkaz na obrázek</label>
+                                    <input class="form-control" id="img" name="img" maxlength="200"
+                                    placeholder="Zadejte odkaz na obrázek" type="url">
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label" for="username">Username</label>
                                     <input class="form-control" id="username" name="username" maxlength="45" required
                                     placeholder="Zadejte username" type="text">
@@ -101,14 +106,19 @@
                                     placeholder="Zadejte odkaz na zatrolenky" type="url">
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label" for="img">Odkaz na obrázek</label>
+                                    <input class="form-control" id="img" name="img" maxlength="200"
+                                    placeholder="Zadejte odkaz na obrázek" type="url">
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label" for="price">Cena</label>
                                     <input class="form-control" id="price" name="price"
                                     placeholder="Zadejte cenu v korunách" type="number" min="0" step="any">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="date">Datum pořízení</label>
-                                    <input class="form-control" id="date" name="date"
-                                    placeholder="Zadejte cenu v korunách" type="date">
+                                    <input class="form-control" id="date" name="date" data-provide="datepicker" data-date-format="dd.mm.yyyy"
+                                    placeholder="Zadejte cenu v korunách" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="method">Způsob pořízení</label>
@@ -181,4 +191,112 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        {% if type == 10 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">Člen odebrán.</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#remMem">
+                        <h3 class="panel-title">Odebrat člena</h3>
+                    </div>
+                    <div id="remMem" class="collapse">
+                        <div class="panel-body">
+                            <form role="form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label" for="user">Člen</label>
+                                    <select class="form-control" id="user" name="user" required>                                        
+                                        {% if members > 0 %}
+                                            {% for index in range(0, membersLenght-1) %}
+                                                <option value="{{members[index].id}}">{{members[index].nazev}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default" name="removeMember">Odebrat člena</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% if type == 11 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">Hra odebrána.</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#remGame">
+                        <h3 class="panel-title">Odebrat hru</h3>
+                    </div>
+                    <div id="remGame" class="collapse">
+                        <div class="panel-body">
+                            <form role="form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label" for="game">Hra</label>
+                                    <select class="form-control" id="game" name="game" required>                                        
+                                        {% if games > 0 %}
+                                            {% for index in range(0, gamesLenght-1) %}
+                                                <option value="{{games[index].id}}">{{games[index].nazev}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default" name="removeGame">Odebrat hru</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% if type == 12 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">Výpůjčka odebrána.</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#remLoan">
+                        <h3 class="panel-title">Odebrat výpůjčku</h3>
+                    </div>
+                    <div id="remLoan" class="collapse">
+                        <div class="panel-body">
+                            <form role="form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label" for="loan">Výpůjčka</label>
+                                    <select class="form-control" id="loan" name="loan" required>                                        
+                                        {% if loans > 0 %}
+                                            {% for index in range(0, loansLenght-1) %}
+                                                <option value="{{loans[index].id}}">Člen: {{loans[index].clen}}&nbsp;&nbsp;&nbsp;&nbsp;Hra: {{loans[index].hra}}&nbsp;&nbsp;&nbsp;&nbsp;Od: {{loans[index].datumPujceni|date("d.m.Y")}}&nbsp;&nbsp;&nbsp;&nbsp;Do: {{loans[index].datumVraceni|date("d.m.Y")}}
+
+                                                </option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default" name="removeLoan">Odebrat vypujcku</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

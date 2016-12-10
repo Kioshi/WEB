@@ -1,5 +1,6 @@
 
 DROP TABLE IF EXISTS `hral`;
+DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `vypujcky`;
 DROP TABLE IF EXISTS `clenove`;
 DROP TABLE IF EXISTS `hry`;
@@ -17,10 +18,11 @@ CREATE TABLE IF NOT EXISTS `hry` (
   `nazev` VARCHAR(45) NOT NULL,
   `alternativniNazev` VARCHAR(45) NOT NULL DEFAULT '',
   `cena` INT NOT NULL DEFAULT '0',
-  `datumPorizeni` DATE NOT NULL DEFAULT NOW(),
+  `datumPorizeni` DATETIME NOT NULL DEFAULT NOW(),
   `zpusob` VARCHAR(45) NOT NULL DEFAULT '',
   `pozn` TEXT NULL,
   `link` VARCHAR(200) NOT NULL DEFAULT '',
+  `img` VARCHAR(200) NOT NULL DEFAULT 'http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png',
   `hernidoba` INT NOT NULL DEFAULT '1',
   `skrine` INT UNSIGNED NOT NULL,
   `minPocet` INT NOT NULL DEFAULT '1',
@@ -38,11 +40,12 @@ CREATE TABLE IF NOT EXISTS `clenove` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `jmeno` VARCHAR(45) NOT NULL,
   `prezdivka` VARCHAR(45) NOT NULL DEFAULT '',
+  `img` VARCHAR(200) NOT NULL DEFAULT 'http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png',
   `aktivni` TINYINT(1) NOT NULL DEFAULT '1',
   `userName` VARCHAR(45) NULL UNIQUE,
   `passHash` TEXT NULL,
   `session` TEXT NULL,
-  `role` INT UNSIGNED NOT NULL DEFAULT '0',
+  `role` INT UNSIGNED NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_clenove_role`
     FOREIGN KEY (`role`)
@@ -64,13 +67,14 @@ CREATE TABLE IF NOT EXISTS `vypujcky` (
   CONSTRAINT `fk_clenove_has_hry_clenove1`
     FOREIGN KEY (`clenove_id`)
     REFERENCES `clenove` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_clenove_has_hry_hry1`
     FOREIGN KEY (`hry_id`)
     REFERENCES `hry` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
 ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `hral` (
@@ -82,13 +86,14 @@ CREATE TABLE IF NOT EXISTS `hral` (
   CONSTRAINT `fk_hry_has_clenove_hry1`
     FOREIGN KEY (`hry_id`)
     REFERENCES `hry` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_hry_has_clenove_clenove1`
     FOREIGN KEY (`clenove_id`)
     REFERENCES `clenove` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
 ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `role` (

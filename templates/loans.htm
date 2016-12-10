@@ -15,10 +15,10 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" data-toggle="collapse" data-target="#loan{{index}}">
                             <div class="row" id="{{data[index].id}}">
-                                <div class="col-md-3 col-centered" id="clen">{{data[index].clen}}</div>
-                                <div class="col-md-3" id="hra">{{data[index].hra}}</div>
-                                <div class="col-md-3" id="datumPujceni">{{data[index].datumPujceni}}</div>
-                                <div class="col-md-3" id="datumVraceni">{{data[index].datumVraceni}}</div>
+                                <div class="col-md-3 col-centered" id="clen"><a href="./?member={{data[index].clen_id}}">{{data[index].clen}}</a></div>
+                                <div class="col-md-3" id="hra"><a href="./?game={{data[index].hra_id}}">{{data[index].hra}}</a></div>
+                                <div class="col-md-3" id="datumPujceni">{{data[index].datumPujceni|date("d.m.Y")}}</div>
+                                <div class="col-md-3" id="datumVraceni">{{data[index].datumVraceni|date("d.m.Y")}}</div>
                             </div>
                         </div>
                         <div id="loan{{index}}" class="collapse">

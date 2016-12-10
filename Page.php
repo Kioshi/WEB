@@ -10,6 +10,7 @@ abstract class Page
         $this->twig = $twig;
     }
 
+    // Virtual function for rendering page
     abstract public function render();
 }
 

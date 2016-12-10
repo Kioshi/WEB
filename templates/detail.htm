@@ -15,16 +15,17 @@
                         <h1>Jméno:</h1>
                     </div>
                     <div class="col-md-9">
-                        <h1>{{info.name}}</h1>
+                        <h1>{{info.name|raw}}</h1>
                     </div>
                 </div>
                 {% for key,value in info.data %}
                     <div class="row">
                         <div class="col-md-3">{{key}}</div>
-                        <div class="col-md-9">{{value}}</div>
+                        <div class="col-md-9">{{value|raw}}</div>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
 </div>
+<br>

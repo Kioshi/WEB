@@ -36,10 +36,14 @@ class AdminPage extends Page
         $games = $this->db->getGames();
         $template_params["games"] = $games;
         $template_params["gamesLenght"] = sizeof($games);
+        $loans = $this->db->getLoans();
+        $template_params["loans"] = $loans;
+        $template_params["loansLenght"] = sizeof($loans);
         $template_params["loanForm"] = $this->formTemplate->render($template_params);
         return $this->template->render($template_params);
     }
     
+    // Process POST request and set type to id according to request
     private function processPOST()
     {
         $this->type = 0;
@@ -75,6 +79,21 @@ class AdminPage extends Page
             }
             else
                 $this->type = 7;
+        }
+        else if (isSet($_POST["removeMember"]))
+        {
+            if ($this->db->removeMember($_POST['user']))
+                $this->type = 10;
+        }
+        else if (isSet($_POST["removeGame"]))
+        {
+            if ($this->db->removeGame($_POST['game']))
+                $this->type = 11;
+        }
+        else if (isSet($_POST["removeLoan"]))
+        {
+            if ($this->db->removeGame($_POST['loan']))
+                $this->type = 12;
         }
     }
 }

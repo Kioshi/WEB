@@ -51,13 +51,13 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="od">Od</label>
-                                <input class="form-control" id="od" name="od" min="{{ "now"|date("Y-m-d") }}" required 
-                                placeholder="Datum od kdy" type="date">
+                                <input class="form-control" id="od" name="od" data-provide="datepicker" data-date-format="dd.mm.yyyy" required 
+                                placeholder="Datum od kdy" type="text">
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="do">Do</label>
-                                <input class="form-control" id="do" name="do" min="{{ "now"|date("Y-m-d") }}" required
-                                placeholder="Datum do kdy" type="date">
+                                <input class="form-control" id="do" name="do" data-provide="datepicker" data-date-format="dd.mm.yyyy" required
+                                placeholder="Datum do kdy" type="text">
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="note">Poznámka</label>
