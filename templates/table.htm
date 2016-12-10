@@ -16,11 +16,12 @@
                 {% endif %}                
                 <div class="col-md-3">
                     <a href="index.php?{{link}}={{data[index].id}}">
-                        <img src="{{data[index].img}}" class="img-thumbnail" style="height:250px;width:250px;overflow:hidden">
+                        <img src="{{data[index].img}}" alt="Image" class="img-thumbnail" style="height:250px;width:250px;overflow:hidden">
                         <h3>{{data[index].nazev}}</h3>
                     </a>
                 </div> 
             {% endfor %}
         {% endif %}
+        </div>
     </div>
 </div>

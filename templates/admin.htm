@@ -22,7 +22,7 @@
                     </div>
                     <div id="user" class="collapse">
                         <div class="panel-body">
-                            <form role="form" method="POST">
+                            <form  method="POST">
                                 <div class="form-group">
                                     <label class="control-label" for="jmeno">Jméno</label>
                                     <input class="form-control" id="jmeno" name="jmeno" maxlength="45" required
@@ -34,8 +34,8 @@
                                     placeholder="Zadejte přezdívku" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="img">Odkaz na obrázek</label>
-                                    <input class="form-control" id="img" name="img" maxlength="200"
+                                    <label class="control-label" for="imag">Odkaz na obrázek</label>
+                                    <input class="form-control" id="imag" name="img" maxlength="200"
                                     placeholder="Zadejte odkaz na obrázek" type="url">
                                 </div>
                                 <div class="form-group">
@@ -79,15 +79,16 @@
                     </div>
                     <div id="game" class="collapse">
                         <div class="panel-body">
-                            <form role="form" method="POST">
+                            <form  method="POST">
                                 <div class="form-group">
                                     <label class="control-label" for="nazev">Název</label>
                                     <input class="form-control" id="nazev" name="nazev" maxlength="45" required
                                     placeholder="Zadejte název" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="skrin">Skříň</label>
-                                    <select class="form-control" id="skrin" name="skrin" required>                                        
+                                    <label class="control-label" for="skrn">Skříň</label>
+                                    <select class="form-control" id="skrn" name="skrin" required>    
+                                    <option value="">Vyberte</option>                                    
                                         {% if closets > 0 %}
                                             {% for index in range(0, closetsLenght-1) %}
                                                 <option value="{{closets[index].id}}">{{closets[index].skrin}}</option>
@@ -177,7 +178,7 @@
                     </div>
                     <div id="closet" class="collapse">
                         <div class="panel-body">
-                            <form role="form" method="POST">
+                            <form  method="POST">
                                 <div class="form-group">
                                     <label class="control-label" for="skrin">Označení skriňe</label>
                                     <input class="form-control" id="skrin" name="skrin" maxlength="2" required
@@ -207,10 +208,11 @@
                     </div>
                     <div id="remMem" class="collapse">
                         <div class="panel-body">
-                            <form role="form" method="POST">
+                            <form  method="POST">
                                 <div class="form-group">
-                                    <label class="control-label" for="user">Člen</label>
-                                    <select class="form-control" id="user" name="user" required>                                        
+                                    <label class="control-label" for="usr">Člen</label>
+                                    <select class="form-control" id="usr" name="user" required>    
+                                        <option value="">Vyberte</option>                                    
                                         {% if members > 0 %}
                                             {% for index in range(0, membersLenght-1) %}
                                                 <option value="{{members[index].id}}">{{members[index].nazev}}</option>
@@ -242,10 +244,11 @@
                     </div>
                     <div id="remGame" class="collapse">
                         <div class="panel-body">
-                            <form role="form" method="POST">
+                            <form  method="POST">
                                 <div class="form-group">
-                                    <label class="control-label" for="game">Hra</label>
-                                    <select class="form-control" id="game" name="game" required>                                        
+                                    <label class="control-label" for="gme">Hra</label>
+                                    <select class="form-control" id="gme" name="game" required>
+                                        <option value="">Vyberte</option>                                        
                                         {% if games > 0 %}
                                             {% for index in range(0, gamesLenght-1) %}
                                                 <option value="{{games[index].id}}">{{games[index].nazev}}</option>
@@ -277,10 +280,11 @@
                     </div>
                     <div id="remLoan" class="collapse">
                         <div class="panel-body">
-                            <form role="form" method="POST">
+                            <form  method="POST">
                                 <div class="form-group">
-                                    <label class="control-label" for="loan">Výpůjčka</label>
-                                    <select class="form-control" id="loan" name="loan" required>                                        
+                                    <label class="control-label" for="loann">Výpůjčka</label>
+                                    <select class="form-control" id="loann" name="loan" required>
+                                        <option value="">Vyberte</option>                                        
                                         {% if loans > 0 %}
                                             {% for index in range(0, loansLenght-1) %}
                                                 <option value="{{loans[index].id}}">Člen: {{loans[index].clen}}&nbsp;&nbsp;&nbsp;&nbsp;Hra: {{loans[index].hra}}&nbsp;&nbsp;&nbsp;&nbsp;Od: {{loans[index].datumPujceni|date("d.m.Y")}}&nbsp;&nbsp;&nbsp;&nbsp;Do: {{loans[index].datumVraceni|date("d.m.Y")}}
