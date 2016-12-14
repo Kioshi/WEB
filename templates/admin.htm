@@ -39,6 +39,17 @@
                                     placeholder="Zadejte odkaz na obrázek" type="url">
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label" for="role">Vyberte roly</label>
+                                    <select class="form-control" id="role" name="role" required>    
+                                    <option value="">Vyberte</option>                                    
+                                        {% if roleLenght > 0 %}
+                                            {% for index in range(0, roleLenght-1) %}
+                                                <option value="{{role[index].id}}">{{role[index].role}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label" for="username">Username</label>
                                     <input class="form-control" id="username" name="username" maxlength="45" required
                                     placeholder="Zadejte username" type="text">
@@ -89,7 +100,7 @@
                                     <label class="control-label" for="skrn">Skříň</label>
                                     <select class="form-control" id="skrn" name="skrin" required>    
                                     <option value="">Vyberte</option>                                    
-                                        {% if closets > 0 %}
+                                        {% if closetsLenght > 0 %}
                                             {% for index in range(0, closetsLenght-1) %}
                                                 <option value="{{closets[index].id}}">{{closets[index].skrin}}</option>
                                             {% endfor %}
@@ -213,7 +224,7 @@
                                     <label class="control-label" for="usr">Člen</label>
                                     <select class="form-control" id="usr" name="user" required>    
                                         <option value="">Vyberte</option>                                    
-                                        {% if members > 0 %}
+                                        {% if membersLenght > 0 %}
                                             {% for index in range(0, membersLenght-1) %}
                                                 <option value="{{members[index].id}}">{{members[index].nazev}}</option>
                                             {% endfor %}
@@ -249,7 +260,7 @@
                                     <label class="control-label" for="gme">Hra</label>
                                     <select class="form-control" id="gme" name="game" required>
                                         <option value="">Vyberte</option>                                        
-                                        {% if games > 0 %}
+                                        {% if gamesLenght > 0 %}
                                             {% for index in range(0, gamesLenght-1) %}
                                                 <option value="{{games[index].id}}">{{games[index].nazev}}</option>
                                             {% endfor %}
@@ -285,7 +296,7 @@
                                     <label class="control-label" for="loann">Výpůjčka</label>
                                     <select class="form-control" id="loann" name="loan" required>
                                         <option value="">Vyberte</option>                                        
-                                        {% if loans > 0 %}
+                                        {% if loansLenght > 0 %}
                                             {% for index in range(0, loansLenght-1) %}
                                                 <option value="{{loans[index].id}}">Člen: {{loans[index].clen}}&nbsp;&nbsp;&nbsp;&nbsp;Hra: {{loans[index].hra}}&nbsp;&nbsp;&nbsp;&nbsp;Od: {{loans[index].datumPujceni|date("d.m.Y")}}&nbsp;&nbsp;&nbsp;&nbsp;Do: {{loans[index].datumVraceni|date("d.m.Y")}}
 

@@ -129,6 +129,14 @@ class Database
         return ($this->stmt->fetch()[0]);
     }
 
+    // Returns user roles
+    public function getRoles()
+    {
+        $this->query('SELECT id, role FROM role');
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 // MEMBERS
     public function getMembers()
     {
@@ -163,6 +171,7 @@ class Database
                     $array['passHash'] = password_hash($value, PASSWORD_DEFAULT);
                     break;
                 case 'username': $array['userName'] = htmlspecialchars($value); break;
+                case 'role': $array['role'] = $value; break;
             }
         }
         $sql1 = 'INSERT INTO clenove (';

@@ -36,6 +36,9 @@ class AdminPage extends Page
         $games = $this->db->getGames();
         $template_params["games"] = $games;
         $template_params["gamesLenght"] = sizeof($games);
+        $role = $this->db->getRoles();
+        $template_params["role"] = $role;
+        $template_params["roleLenght"] = sizeof($role);
         $loans = $this->db->getLoans();
         $template_params["loans"] = $loans;
         $template_params["loansLenght"] = sizeof($loans);
