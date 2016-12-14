@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `clenove` (
   `userName` VARCHAR(45) NULL UNIQUE,
   `passHash` TEXT NULL,
   `session` TEXT NULL,
-  `role` INT UNSIGNED NOT NULL DEFAULT '1',
+  `role` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_clenove_role`
     FOREIGN KEY (`role`)
