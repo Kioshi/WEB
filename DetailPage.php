@@ -224,6 +224,8 @@ class GamePage extends DetailPage
         $info = array();
         $info += $this->makeEditable('name','text','hry_nazev',$data['nazev']);
         $info['data'] = array();
+        if (!$data)
+            return $info;
         $table = 'hry_';
         foreach ($data as $key => $value)
         {
