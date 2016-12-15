@@ -138,6 +138,8 @@ class MemberPage extends DetailPage
         $template_params = array();
         $template_params["pageName"] = 'Člen';
         $template_params["info"] = $data;
+        $played = $this->db->getPlayed($this->id);
+        $template_params["played"] = $played;
         $result = $this->template->render($template_params);
         if ($this->canEdit())
             $result .= $this->loanForm($dbData['jmeno']);
@@ -207,6 +209,8 @@ class GamePage extends DetailPage
         $template_params = array();
         $template_params["pageName"] = 'Hra';
         $template_params["info"] = $data;
+        $played = $this->db->getPlayed(null,$this->id);
+        $template_params["played"] = $played;
         return $this->template->render($template_params);
     }
 

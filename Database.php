@@ -371,6 +371,16 @@ class Database
         }
     }
 
+    public function getPlayed($member, $game = null)
+    {
+        $name = $member !== null ? 'g.nazev' : 'c.jmeno';
+        $alias = $member == null ? 'g' : 'c';
+        $this->query('SELECT GROUP_CONCAT('.$name.', \', \') as hral FROM hral h JOIN hry g ON h.hry_id = g.id JOIN clenove c ON h.clenove_id = c.id WHERE '.$alias.'.id = :id');
+        $this->bind(':id', $member == null ? $game : $member);
+        $this->execute();
+        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 //LOANS
     public function getLoans($memberId = null,$gameId = null)
     {
