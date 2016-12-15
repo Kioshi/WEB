@@ -377,18 +377,18 @@ class Database
         $sql = 'SELECT v.id, c.jmeno AS clen, c.id as clen_id, h.nazev AS hra, h.id as hra_id, v.datumPujceni, v.datumVraceni, v.pozn FROM vypujcky v JOIN hry h ON v.hry_id = h.id JOIN clenove c ON c.id = v.clenove_id';
         if ($memberId != null)
         {
-            $sql .= ' WHERE v.clenove_id = :memberId';
+            $sql .= ' WHERE v.clenove_id = :memberId ORDER BY v.datumPujceni ASC';
             $this->query($sql);
             $this->bind(':memberId', $memberId);
         }
         else if ($gameId != null)
         {
-            $sql .= ' WHERE v.hry_id = :gameId';
+            $sql .= ' WHERE v.hry_id = :gameId ORDER BY v.datumPujceni ASC';
             $this->query($sql);
             $this->bind(':gameId', $gameId);
         }
         else
-            $this->query($sql);
+            $this->query($sql.' ORDER BY v.datumPujceni ASC');
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
